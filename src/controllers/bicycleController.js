@@ -31,6 +31,22 @@ const getBicyclesStatistic = async (req, res) => {
          return res.status(500).json({error: err.message});
     }
 }
+const getBicyclesByStatus = async (req, res) => {
+    try {
+        const bicycleStatus = req.query.status;
+        console.log(bicycleStatus)
+        const validBicycleStatus = ['available', 'busy', 'unavailable']; 
+        if (!validBicycleStatus.includes(bicycleStatus)) {
+            return res.status(400).json({ error: "Invalid bicycle status" });
+        }
+        const bicycles = await Bicycle.find({ status: bicycleStatus });
+
+        return res.status(200).json(bicycles);
+    } catch (err) {
+        console.log(err);
+         return res.status(500).json({error: err.message});
+    }
+}
 
 
 const updateBicycleStatus = async (req, res) => {
@@ -87,4 +103,4 @@ const deleteBicycle = async (req, res) => {
     }
 }
 
-module.exports = { getAllBicycles, createBicycle, deleteBicycle, getBicyclesStatistic, updateBicycleStatus };
+module.exports = { getAllBicycles, createBicycle, deleteBicycle, getBicyclesStatistic, updateBicycleStatus, getBicyclesByStatus };

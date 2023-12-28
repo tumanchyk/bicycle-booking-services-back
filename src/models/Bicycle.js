@@ -7,6 +7,11 @@ const BicycleSchema = new Schema({
         required: [true, "Bicycle name is required"],
         minlength: [5, "Bicycle name should be at least 5 characters"]
     },
+    id: {
+        type: String,
+        required: [true, "Bicycle id is required"],
+        minlength: [5, "Bicycle name should be at least 5 characters"]
+    },
     type: {
         type: String,
         required: [true, "Bicycle type is required"],

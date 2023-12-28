@@ -34,10 +34,13 @@ const getBicyclesStatistic = async (req, res) => {
 const getBicyclesByStatus = async (req, res) => {
     try {
         const bicycleStatus = req.query.status;
-        console.log(bicycleStatus)
-        const validBicycleStatus = ['available', 'busy', 'unavailable']; 
+        const validBicycleStatus = ['available', 'busy', 'unavailable', 'all']; 
         if (!validBicycleStatus.includes(bicycleStatus)) {
             return res.status(400).json({ error: "Invalid bicycle status" });
+        }
+        if (bicycleStatus === 'all') {
+            const bicycles = await Bicycle.find();
+            return res.status(200).json(bicycles);    
         }
         const bicycles = await Bicycle.find({ status: bicycleStatus });
 
